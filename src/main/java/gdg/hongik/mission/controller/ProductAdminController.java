@@ -1,49 +1,38 @@
 package gdg.hongik.mission.controller;
 
-import gdg.hongik.mission.entity.Product;
+import gdg.hongik.mission.dto.request.ProductCreateRequest;
+import gdg.hongik.mission.dto.request.StockUpdateRequest;
+import gdg.hongik.mission.dto.response.ProductResponse;
 import gdg.hongik.mission.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * 관리자(Admin)용 상품 관리 API 요청을 처리하는 컨트롤러입니다.
- * 2주차부터는 컨트롤러가 직접 데이터를 처리하지 않고, 요청을 받아 ProductService에게 작업을 위임합니다.
- */
 @RestController
 @RequestMapping("/admin/products")
 public class ProductAdminController {
 
     private final ProductService productService;
 
-    /**
-     * 생성자를 통해 스프링이 관리하는 ProductService 빈(Bean)을 주입받습니다.
-     */
     public ProductAdminController(ProductService productService) {
         this.productService = productService;
     }
 
-    /**
-     * 1. 상품 등록 API (POST /admin/products)
-     */
+    // 1. 상품 등록
     @PostMapping
-    public Product registerProduct(@RequestBody Product request) {
+    public ProductResponse registerProduct(@RequestBody ProductCreateRequest request) {
         return productService.registerProduct(request);
     }
 
-    /**
-     * 2. 재고 추가 API (PATCH /admin/products/stock)
-     */
+    // 2. 재고 추가
     @PatchMapping("/stock")
-    public Product addStock(@RequestBody Product request) {
+    public ProductResponse addStock(@RequestBody StockUpdateRequest request) {
         return productService.addStock(request);
     }
 
-    /**
-     * 3. 상품 삭제 API (DELETE /admin/products)
-     */
+    // 3. 상품 삭제
     @DeleteMapping
-    public List<Product> deleteProducts(@RequestBody List<Long> productIds) {
+    public List<ProductResponse> deleteProducts(@RequestBody List<Long> productIds) {
         return productService.deleteProducts(productIds);
     }
 }
