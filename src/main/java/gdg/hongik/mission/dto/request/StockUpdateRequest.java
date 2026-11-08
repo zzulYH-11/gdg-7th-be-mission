@@ -1,7 +1,9 @@
 package gdg.hongik.mission.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public record StockUpdateRequest(
-        Long id,
-        int stock
+        @JsonProperty("itemName") String name,
+        @JsonProperty("quantity") int stock
 ) {
 }

@@ -4,6 +4,6 @@ import java.util.List;
 
 public record PurchaseResponse(
         int totalPrice,
-        List<PurchasedProductResponse> purchasedProducts
+        List<PurchasedProductResponse> items
 ) {
 }

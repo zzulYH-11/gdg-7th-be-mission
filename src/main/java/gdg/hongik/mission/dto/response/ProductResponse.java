@@ -1,20 +1,23 @@
 package gdg.hongik.mission.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import gdg.hongik.mission.entity.Category;
 import gdg.hongik.mission.entity.Product;
 
 public record ProductResponse(
         Long id,
-        String name,
+        @JsonProperty("itemName") String name,
         int price,
-        int stock
+        @JsonProperty("quantity") int stock,
+        Category category
 ) {
-    // Entity -> DTO 변환 편의 메서드
     public static ProductResponse from(Product product) {
         return new ProductResponse(
                 product.getId(),
                 product.getName(),
                 product.getPrice(),
-                product.getStock()
+                product.getStock(),
+                product.getCategory()
         );
     }
 }

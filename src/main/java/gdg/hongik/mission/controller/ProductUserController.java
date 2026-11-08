@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/products")
 public class ProductUserController {
@@ -18,13 +19,19 @@ public class ProductUserController {
         this.productService = productService;
     }
 
-    // 1. 상품 단건 조회
+    // 1. 전체 상품 목록 조회
     @GetMapping
-    public ProductResponse getProductByName(@RequestParam String name) {
+    public List<ProductResponse> getAllProducts() {
+        return productService.getAllProducts();
+    }
+
+    // 2. 상품명 단건 검색 (params 지정으로 전체 조회와 경로 충돌 방지)
+    @GetMapping(params = "itemName")
+    public ProductResponse getProductByName(@RequestParam("itemName") String name) {
         return productService.getProductByName(name);
     }
 
-    // 2. 상품 일괄 구매
+    // 3. 장바구니 상품 일괄 구매
     @PostMapping("/purchase")
     public PurchaseResponse purchaseProducts(@RequestBody List<PurchaseItemRequest> requests) {
         return productService.purchaseProducts(requests);

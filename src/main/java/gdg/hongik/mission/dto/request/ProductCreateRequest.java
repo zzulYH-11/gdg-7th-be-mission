@@ -1,8 +1,12 @@
 package gdg.hongik.mission.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import gdg.hongik.mission.entity.Category;
+
 public record ProductCreateRequest(
-        String name,
+        @JsonProperty("itemName") String name,
         int price,
-        int stock
+        @JsonProperty("quantity") int stock,
+        Category category
 ) {
 }
